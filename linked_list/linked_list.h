@@ -1,26 +1,26 @@
 #include <iostream>
 
 struct Node {
-  int value;
-  int idx;
-  Node *next;
-  Node *prev;
+  int   value;
+  int   idx;
+  Node* next;
+  Node* prev;
 
   Node(int val) {
     value = val;
-    next = nullptr;
-    prev = nullptr;
+    next  = nullptr;
+    prev  = nullptr;
   }
 };
 
 class LinkedList {
-private:
-  Node *head;
-  Node *tail;
-  int size;
-  int capacity = 999;
+ private:
+  Node* head;
+  Node* tail;
+  int   size;
+  int   capacity = 999;
 
-public:
+ public:
   LinkedList() {
     head = nullptr;
     tail = nullptr;
@@ -28,7 +28,7 @@ public:
   }
 
   ~LinkedList() {
-    Node *current = head;
+    Node* current = head;
     while (current->next != nullptr) {
       current = current->next;
       delete current->prev;
@@ -48,11 +48,11 @@ public:
 
   void remove(int val);
 
-  void remove(Node *node);
+  void remove(Node* node);
 
-  Node *getNode(int idx);
+  Node* getNode(int idx);
 
-  Node *getHead();
+  Node* getHead();
 
   int getSize();
 
