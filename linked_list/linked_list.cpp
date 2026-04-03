@@ -1,41 +1,23 @@
 #include "linked_list.h"
 
-void LinkedList::pushTail(int value) { insert(getSize() - 1, value); }
+void LinkedList::pushTail(int value) { insert(getSize(), value); }
 
-void LinkedList::pushHead(int value) {
-  if (size == capacity - 1)  // Full list
-    return;
-
-  Node* node = new Node(value);
-  node->idx  = 0;
-
-  if (size == 0) {  // empty list
-    head = node;
-    tail = head;
-  } else {
-    node->next    = head;
-    head->prev    = node;
-    head          = node;
-    Node* current = head;
-    for (int i = 0; i < size; i++) {
-      current = current->next;
-      current->idx++;
-    }
-  }
-  size++;
-}
+void LinkedList::pushHead(int value) { insert(0, value); }
 
 void LinkedList::insert(int idx, int value) {
   // empty list, insert at head
-  if (getSize() == 0) {
+  if (isEmpty()) {
     Node* node = new Node(value);
     head       = node;
+    tail       = node;
+    node->idx  = 0;
     head->next = nullptr;
+    size++;
     return;
   }
 
   // invalid idx or full list
-  if (idx > getSize() - 1 || idx < 0) {
+  if (idx > getSize() || idx < 0) {
     printf("Invalid Index");
     return;
   } else if (getSize() == capacity - 1) {
@@ -45,22 +27,42 @@ void LinkedList::insert(int idx, int value) {
 
   Node* node = new Node(value);
   if (idx == 0) {
+    node->next = head;
+    head->prev = node;
+    head       = node;
+    Node* temp = head->next;
+    while (temp != nullptr) {
+      temp->idx++;
+      temp = temp->next;
+    }
+    node->idx = idx;
+    size++;
   }
 
   // insert at tail if idx is end
-  else if (idx == tail->idx) {
+  else if (idx == getSize()) {
     node->prev = tail;
+    tail->next = node;
     tail       = node;
     node->next = nullptr;
+    node->idx  = idx;
+    size++;
   } else {  // insert anywhere else
-    node->prev = getNode(idx - 1);
-    node->next = getNode(idx + 1);
+    Node* before = getNode(idx - 1);
+    Node* after  = getNode(idx);
+    node->prev   = before;
+    node->next   = after;
+    before->next = node;
+    after->prev  = node;
 
-    Node* current = node;
-    for (int i = idx; i < size; i++) current->next->idx++;
+    Node* current = node->next;
+    while (current != nullptr) {
+      current->idx++;
+      current = current->next;
+    }
+    node->idx = idx;
+    size++;
   }
-  size++;
-  tail->idx = size - 1;
 }
 
 void LinkedList::pop() { remove(tail); }
@@ -95,12 +97,20 @@ Node* LinkedList::getNode(int idx) {
   return current;
 }
 
+bool LinkedList::isEmpty() {
+  if (getSize() == 0)
+    return true;
+  else
+    return false;
+}
+
 void LinkedList::printFun() {
   Node* current = head;
   if (head == nullptr) return;
   while (current != nullptr) {
-    printf("| %i\n", current->value);
+    printf("| %i ", current->value);
     current = current->next;
   }
+  printf("\n");
   return;
 }

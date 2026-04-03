@@ -29,10 +29,10 @@ class LinkedList {
 
   ~LinkedList() {
     Node* current = head;
-    while (current->next != nullptr) {
-      current = current->next;
-      delete current->prev;
-      current->prev = nullptr;
+    while (current != nullptr) {
+      Node* next = current->next;
+      delete current;
+      current = next;
     }
   }
 
@@ -55,6 +55,8 @@ class LinkedList {
   Node* getHead();
 
   int getSize();
+
+  bool isEmpty();
 
   // helper
   void printFun();
