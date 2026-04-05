@@ -35,7 +35,20 @@ class LinkedList {
     }
   }
 
-  // Note: add copy constructor and assignment operator
+  // copy constructor so a copys nodes arent tied to same memory
+  LinkedList(const LinkedList& other) : head_(nullptr), tail_(nullptr), size_(0) {
+    Node* current = other.head_;
+    while (current != nullptr) {
+      pushTail(current->value);
+      current = current->next;
+    }
+  }
+
+  // assignment operator
+  LinkedList& operator=(LinkedList other) {
+    swap(other);
+    return *this;
+  }
 
   void insert(int idx, int val);
 
@@ -71,4 +84,7 @@ class LinkedList {
   void printFun();
 
   void printReverse();
+
+ private:
+  void swap(LinkedList& o);
 };

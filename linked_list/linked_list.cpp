@@ -182,3 +182,15 @@ void LinkedList::printReverse() {
   }
   printf("\n");
 }
+
+void LinkedList::swap(LinkedList& o) {
+  Node* tH = getHead();
+  Node* tT = getTail();
+  int   tS = getSize();
+  head_    = o.head_;
+  tail_    = o.tail_;
+  size_    = o.size_;
+  o.head_  = tH;
+  o.tail_  = tT;
+  o.size_  = tS;
+}
