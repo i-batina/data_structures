@@ -2,7 +2,6 @@
 
 struct Node {
   int   value;
-  int   idx;
   Node* next;
   Node* prev;
 
@@ -38,17 +37,25 @@ class LinkedList {
 
   // Note: add copy constructor and assignment operator
 
-  void pushTail(int val);
-
-  void pushHead(int val);
-
-  void pop();
-
   void insert(int idx, int val);
 
   void remove(int val);
 
-  void remove(Node* node);
+  bool contains(int val);
+
+  int indexOf(int val);
+
+  void reverse();
+
+  // void sort();
+
+  void pushTail(int val);
+
+  void pushHead(int val);
+
+  void popTail();
+
+  void popHead();
 
   Node* getNode(int idx);
 
@@ -62,4 +69,6 @@ class LinkedList {
 
   // helper
   void printFun();
+
+  void printReverse();
 };
