@@ -15,20 +15,20 @@ struct Node {
 
 class LinkedList {
  private:
-  Node* head;
-  Node* tail;
-  int   size;
-  int   capacity = 999;
+  Node* head_;
+  Node* tail_;
+  int   size_;
+  int   capacity_ = 999;
 
  public:
   LinkedList() {
-    head = nullptr;
-    tail = nullptr;
-    size = 0;
+    head_ = nullptr;
+    tail_ = nullptr;
+    size_ = 0;
   }
 
   ~LinkedList() {
-    Node* current = head;
+    Node* current = head_;
     while (current != nullptr) {
       Node* next = current->next;
       delete current;
