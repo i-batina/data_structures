@@ -54,6 +54,8 @@ class LinkedList {
 
   Node* getHead();
 
+  Node* getTail();
+
   int getSize();
 
   bool isEmpty();
